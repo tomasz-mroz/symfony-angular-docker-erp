@@ -1,0 +1,167 @@
+/* Zablokowanie zaznaczania tekstu na całej stronie */
+body {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;         /* Standard */
+}
+
+/* Przywrócenie zaznaczania i pisania tylko dla pól formularzy */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+/* ==========================================================================
+   1. IMPORTY I ZMIENNE GLOBALNE
+   ========================================================================== */
+/* Pobranie nowoczesnej czcionki 'Inter' z Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --app-bg-color: #f3f4f6; /* Jasnoszare tło dla całej aplikacji (Tailwind gray-100) */
+  --text-primary: #1f2937; /* Ciemnoszary tekst, łagodniejszy niż czysty czarny */
+  --primary-color: #3b82f6; /* Główny niebieski akcent */
+}
+
+/* ==========================================================================
+   2. CSS RESET (Podstawa czystego layoutu)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   3. STYLE DLA ELEMENTU BODY (Typografia i tło)
+   ========================================================================== */
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--app-bg-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+
+  /* Wygładzanie czcionek (wyglądają bardziej ostro i nowocześnie) */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   4. NOWOCZESNY SCROLLBAR (Pasek przewijania)
+   ========================================================================== */
+/* Działa w Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; /* Jasnoszary suwak */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; /* Ciemniejszy po najechaniu */
+}
+
+/* ==========================================================================
+   5. GLOBALNE POPRAWKI (Opcjonalne)
+   ========================================================================== */
+/* Usuwa brzydkie niebieskie obramowanie na starych przeglądarkach, zastępując nowoczesnym focus-visible */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Upewnienie się, że linki nie mają domyślnego podkreślenia, chyba że chcemy */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==========================================================================
+   6. GLOBALNE STYLE DLA PRZYCISKÓW (PrimeNG)
+   ========================================================================== */
+
+/* Nadpisanie głównego kontenera przycisku */
+.p-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;        /* Idealne wyśrodkowanie w poziomie */
+  gap: 0.5rem;                    /* Równy odstęp między ikoną a tekstem */
+  border-radius: 8px !important;  /* Nowoczesne, delikatne zaokrąglenie (nadpisuje domyślne) */
+  font-weight: 500;               /* Nieco grubszy, czytelniejszy tekst */
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease-in-out !important; /* Płynność animacji */
+}
+
+/* Zapobieganie domyślnym marginesom PrimeNG na rzecz nowoczesnego 'gap' (wyżej) */
+.p-button .p-button-icon-left,
+.p-button .p-button-icon-right {
+  margin: 0 !important;
+}
+
+/* Wyśrodkowanie samego tekstu (etykiety) */
+.p-button .p-button-label {
+  flex: none;
+  font-weight: 500;
+  text-align: center;
+}
+
+/*
+   EFEKTY INTERAKCJI (Hover / Active)
+   Dodaje efekt "podniesienia" i cienia przy najechaniu
+   oraz "wciskania" przy kliknięciu.
+*/
+.p-button:not(.p-disabled):not(.p-button-text):not(.p-button-outlined):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.p-button:not(.p-disabled):active {
+  transform: translateY(1px);
+  box-shadow: none !important;
+}
+
+/* Subtelny hover dla przycisków typu "text" (np. przycisk wyloguj w navbarze) */
+.p-button.p-button-text:not(.p-disabled):hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  transform: none; /* Przyciski tekstowe się nie podnoszą */
+}
+/* ==========================================================================
+   7. GLOBALNE STYLE DLA INPUTÓW (PrimeNG)
+   ========================================================================== */
+.p-inputtext {
+  background-color: #f8fafc !important; /* Delikatny, chłodny szary w całej aplikacji */
+  color: #1e293b !important;            /* Ciemny, czytelny tekst */
+  border: 1px solid #cbd5e1 !important; /* Subtelna ramka */
+  border-radius: 8px !important;        /* Nowoczesne zaokrąglenie */
+  padding: 0.75rem 1rem !important;     /* Wygodny padding */
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    border-color: #94a3b8 !important;
+  }
+
+  &:focus {
+    background-color: #ffffff !important; /* Czysta biel po kliknięciu */
+    border-color: #2563eb !important;     /* Niebieski akcent */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important; /* Miękka poświata */
+    outline: none !important;
+  }
+}

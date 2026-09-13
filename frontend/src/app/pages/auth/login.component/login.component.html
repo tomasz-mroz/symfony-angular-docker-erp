@@ -1,0 +1,77 @@
+<div class="login-container">
+  <div class="login-card-wrapper">
+    <p-card styleClass="p-shadow-6 custom-login-card">
+
+      <!-- Nagłówek marki / aplikacji -->
+      <div class="brand-header">
+        <p>Zaloguj się, aby kontynuować</p>
+      </div>
+
+      <!-- Komunikat błędu z serwera -->
+      @if (errorMessage()) {
+        <div class="alert-error">
+          <i class="pi pi-exclamation-circle"></i>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+
+        <!-- Pole Email -->
+        <div class="field">
+          <label for="email">Adres e-mail</label>
+          <input
+            pInputText
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="np. jan.kowalski@firma.pl"
+            autocomplete="email"
+            class="w-full"
+            [class.ng-invalid]="email.invalid && email.touched"
+            [class.ng-dirty]="email.touched"
+          />
+          @if (email.invalid && email.touched) {
+            <small class="error-text">
+              @if (email.hasError('required')) {
+                Adres e-mail jest wymagany.
+              } @else {
+                Wprowadź poprawny adres e-mail.
+              }
+            </small>
+          }
+        </div>
+
+        <!-- Pole Hasło -->
+        <div class="field">
+          <div class="field-header">
+            <label for="password">Hasło</label>
+            <a routerLink="/zapomniane-haslo" class="forgot-link">Zapomniałeś hasła?</a>
+          </div>
+          <p-password
+            inputId="password"
+            formControlName="password"
+            [toggleMask]="true"
+            [feedback]="false"
+            autocomplete="current-password"
+            styleClass="w-full"
+            [inputStyleClass]="(password.invalid && password.touched) ? 'ng-invalid ng-dirty w-full' : 'w-full'"
+          />
+          @if (password.invalid && password.touched) {
+            <small class="error-text">Hasło jest wymagane.</small>
+          }
+        </div>
+
+        <!-- Przycisk Zaloguj -->
+        <p-button
+          type="submit"
+          label="Zaloguj się"
+          icon="pi pi-sign-in"
+          [loading]="loading()"
+          styleClass="w-full submit-btn"
+        />
+
+      </form>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,173 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+$sidebar-width: 260px;
+$sidebar-collapsed-width: 70px;
+$topbar-height: 64px;
+
+/* --- NASZE NOWE KOLORY --- */
+$navy-blue: #1e40af; /* Elegancki granat/ciemny niebieski */
+$hover-blue: #2563eb; /* Niebieski przy najechaniu */
+$active-bg: #eff6ff; /* Bardzo delikatny błękit na tło aktywnej zakładki */
+/* ------------------------- */
+
+.layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.layout-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  z-index: 100;
+  transition: width 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+
+  .sidebar-header {
+    height: $topbar-height;
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: $navy-blue; /* Zmienione na granat */
+
+      i {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 1rem 0.75rem;
+    overflow-y: auto;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        color: #475569;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.925rem;
+        transition: all 0.15s ease;
+
+        i {
+          font-size: 1.15rem;
+          color: #64748b;
+        }
+
+        &:hover {
+          background-color: #f1f5f9;
+          color: #0f172a;
+
+          i {
+            color: $hover-blue; /* Ikona robi się niebieska przy najechaniu */
+          }
+        }
+
+        &.active-link {
+          background-color: $active-bg; /* Jasnobłękitne tło */
+          color: $navy-blue; /* Granatowy tekst */
+          font-weight: 600;
+
+          i {
+            color: $navy-blue; /* Granatowa ikona */
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Kontener Główny */
+.layout-main-container {
+  flex: 1;
+  margin-left: $sidebar-width;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.2s ease-in-out;
+}
+
+/* Topbar */
+.layout-topbar {
+  height: $topbar-height;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 500;
+      color: #334155;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.layout-content {
+  padding: 2rem;
+  flex: 1;
+}
+
+/* Stan zwiniętego sidebara */
+.layout-sidebar-collapsed {
+  .layout-sidebar {
+    width: $sidebar-collapsed-width;
+
+    .sidebar-header {
+      justify-content: center;
+      padding: 0;
+    }
+
+    .nav-item {
+      justify-content: center;
+      padding: 0.75rem 0;
+    }
+  }
+
+  .layout-main-container {
+    margin-left: $sidebar-collapsed-width;
+  }
+}

@@ -1,0 +1,154 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #172554 100%);
+  padding: 1.5rem;
+}
+
+.login-card-wrapper {
+  width: 100%;
+  max-width: 440px;
+
+  ::ng-deep .custom-login-card {
+    border-radius: 16px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden;
+
+    .p-card-body {
+      padding: 2.5rem 2rem;
+    }
+  }
+}
+
+/* Nagłówek */
+.brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #94a3b8;
+  }
+}
+
+/* Błąd serwera */
+.alert-error {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  padding: 0.875rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+/* Formularz */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+
+  label {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #cbd5e1;
+  }
+
+  .field-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .forgot-link {
+      font-size: 0.8rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #93c5fd;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .error-text {
+    color: #f87171;
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+  }
+}
+
+/* Globalna stylizacja i wyrównanie pól PrimeNG */
+::ng-deep {
+  /* Wymuszenie pełnej szerokości dla p-password */
+  .p-password {
+    width: 100% !important;
+    display: flex !important;
+  }
+
+  /* Jednakowe wymiary i marginesy wewnętrzne dla WSZYSTKICH pól tekstowych */
+  .p-inputtext {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #f8fafc !important;
+    border-radius: 8px;
+    padding: 0.75rem 1rem !important; /* Jednakowy odstęp tekst-krawędź w obu polach */
+    transition: all 0.2s ease;
+
+    &:enabled:focus {
+      border-color: #60a5fa !important;
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    }
+
+    &::placeholder {
+      color: #64748b !important;
+    }
+  }
+
+  /* Przycisk wysłania */
+  .submit-btn {
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px !important;
+    font-weight: 600;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    border: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+    }
+  }
+}

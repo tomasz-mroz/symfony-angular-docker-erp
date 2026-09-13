@@ -1,0 +1,107 @@
+<div class="list-wrapper">
+  <!-- Nagłówek sekcji (z opcjonalnym przyciskiem dodawania) -->
+  <div class="header-section">
+    <div class="header-titles">
+      <h1 class="title">Lista Pracowników</h1>
+      <p class="subtitle">Zarządzaj zespołem, wyszukuj i filtruj pracowników po stanowiskach.</p>
+    </div>
+    <div class="header-actions">
+      <!-- Przycisk przenoszący do dodawania pracownika -->
+      <p-button
+        label="Dodaj pracownika"
+        icon="pi pi-plus"
+        routerLink="/pracownicy/dodaj"
+      />
+    </div>
+  </div>
+
+  <!-- Tabela PrimeNG -->
+  <div class="table-card">
+    <p-table
+      #dt
+      [value]="employees"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [loading]="loading"
+      [rowHover]="true"
+      styleClass="p-datatable-striped"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Wyświetlanie od {first} do {last} z {totalRecords} pracowników"
+      responsiveLayout="scroll"
+    >
+
+      <!-- Nagłówki i sortowanie -->
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="firstName" style="width: 30%;">
+            Imię <p-sortIcon field="firstName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="lastName" style="width: 30%;">
+            Nazwisko <p-sortIcon field="lastName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="position" style="width: 40%;">
+            Stanowisko <p-sortIcon field="position"></p-sortIcon>
+          </th>
+        </tr>
+
+        <!-- Pola filtrów pod nagłówkami (wbudowany mechanizm PrimeNG) -->
+        <tr>
+          <th>
+            <p-columnFilter
+              type="text"
+              field="firstName"
+              placeholder="Szukaj imienia"
+              ariaLabel="Filtruj po imieniu"
+              [showMenu]="false">
+            </p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter
+              type="text"
+              field="lastName"
+              placeholder="Szukaj nazwiska"
+              ariaLabel="Filtruj po nazwisku"
+              [showMenu]="false">
+            </p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter
+              type="text"
+              field="position"
+              placeholder="Szukaj stanowiska"
+              ariaLabel="Filtruj po stanowisku"
+              [showMenu]="false">
+            </p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+
+      <!-- Zawartość tabeli -->
+      <ng-template pTemplate="body" let-employee>
+        <tr>
+          <td>
+            <span class="font-medium text-color">{{ employee.firstName }}</span>
+          </td>
+          <td>
+            <span class="font-medium text-color">{{ employee.lastName }}</span>
+          </td>
+          <td>
+            <!-- Drobny akcent wizualny na stanowisko -->
+            <span class="position-badge">{{ employee.position }}</span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <!-- Kiedy brak danych / trwa ładowanie / brak wyników filtrowania -->
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="3" class="empty-state">
+            <i class="pi pi-search" style="font-size: 2rem; color: #9ca3af; margin-bottom: 1rem;"></i>
+            <p>Nie znaleziono żadnych pracowników.</p>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

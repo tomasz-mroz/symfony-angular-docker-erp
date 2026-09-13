@@ -1,0 +1,85 @@
+<div class="employee-form-container">
+  <p-card styleClass="employee-card">
+
+    <ng-template pTemplate="title">
+      <div class="card-title">
+        <div class="icon-wrapper">
+          <i class="pi pi-user-plus"></i>
+        </div>
+        <div class="title-text">
+          <h2>Nowy pracownik</h2>
+          <span>Wprowadź dane, aby dodać osobę do systemu</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div class="form-layout">
+
+        <div class="input-group">
+          <label for="firstName">Imię</label>
+          <input
+            pInputText
+            id="firstName"
+            formControlName="firstName"
+            placeholder="np. Jan"
+            [class.ng-invalid]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
+            [class.ng-dirty]="employeeForm.get('firstName')?.touched"
+          />
+          @if (employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched) {
+            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="lastName">Nazwisko</label>
+          <input
+            pInputText
+            id="lastName"
+            formControlName="lastName"
+            placeholder="np. Kowalski"
+            [class.ng-invalid]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
+            [class.ng-dirty]="employeeForm.get('lastName')?.touched"
+          />
+          @if (employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched) {
+            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
+          }
+        </div>
+
+        <div class="input-group full-width">
+          <label for="position">Stanowisko</label>
+          <input
+            pInputText
+            id="position"
+            formControlName="position"
+            placeholder="np. Frontend Developer"
+            [class.ng-invalid]="employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched"
+            [class.ng-dirty]="employeeForm.get('position')?.touched"
+          />
+          @if (employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched) {
+            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
+          }
+        </div>
+
+      </div>
+
+      <div class="form-footer">
+        <p-button
+          label="Anuluj"
+          icon="pi pi-times"
+          severity="secondary"
+          [outlined]="true"
+          (onClick)="employeeForm.reset()"
+          type="button">
+        </p-button>
+        <p-button
+          label="Zapisz pracownika"
+          icon="pi pi-save"
+          type="submit"
+          [disabled]="employeeForm.invalid">
+        </p-button>
+      </div>
+    </form>
+
+  </p-card>
+</div>

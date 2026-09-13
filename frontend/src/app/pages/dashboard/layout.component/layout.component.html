@@ -1,0 +1,92 @@
+<div class="layout-wrapper" [class.layout-sidebar-collapsed]="sidebarCollapsed()">
+
+  <!-- Boczny pasek nawigacyjny (Sidebar) -->
+  <aside class="layout-sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="pi pi-shield"></i>
+        @if (!sidebarCollapsed()) {
+          <span class="logo-text">ERP360</span>
+        }
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul>
+        @for (item of navItems; track item.label) {
+          <li>
+            <a
+              [routerLink]="item.routerLink"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: false }"
+              class="nav-item"
+              [pTooltip]="sidebarCollapsed() ? item.label : ''"
+              tooltipPosition="right"
+            >
+              <i [class]="item.icon"></i>
+              @if (!sidebarCollapsed()) {
+                <span class="nav-label">{{ item.label }}</span>
+              }
+            </a>
+
+            @if (item.children && !sidebarCollapsed()) {
+              <ul class="sub-nav">
+                @for (child of item.children; track child.routerLink) {
+                  <li>
+                    <a
+                      [routerLink]="child.routerLink"
+                      routerLinkActive="active-link"
+                      class="nav-item sub-item"
+                      style="padding-left: 3rem;"
+                    >
+                      <i [class]="child.icon"></i>
+                      <span class="nav-label">{{ child.label }}</span>
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          </li>
+        }
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Główny kontener aplikacji -->
+  <div class="layout-main-container">
+
+    <!-- Górna belka (Topbar / Navbar) -->
+    <header class="layout-topbar">
+      <div class="topbar-left">
+        <p-button
+          icon="pi pi-bars"
+          [text]="true"
+          severity="secondary"
+          (onClick)="toggleSidebar()"
+        />
+      </div>
+
+      <div class="topbar-right">
+        <div class="user-profile">
+          <p-avatar icon="pi pi-user" shape="circle" styleClass="user-avatar" />
+          <span class="user-name">Użytkownik</span>
+        </div>
+
+        <p-button
+          icon="pi pi-power-off"
+          [text]="true"
+          severity="danger"
+          pTooltip="Wyloguj się"
+          tooltipPosition="bottom"
+          (onClick)="onLogout()"
+        />
+      </div>
+    </header>
+
+    <!-- Miejsce na dynamiczną treść (Dashboard, Zlecenia itp.) -->
+    <main class="layout-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

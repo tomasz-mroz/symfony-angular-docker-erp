@@ -1,0 +1,138 @@
+.employee-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  /* Delikatne tło wypełniające ekran, jeśli router-outlet go nie zapewnia */
+  min-height: 100%;
+}
+
+/* Nadpisywanie domyślnych styli p-card dla nowocześniejszego wyglądu */
+::ng-deep .employee-card {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+
+  .p-card-body {
+    padding: 2.5rem;
+  }
+
+  .p-card-title {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  .icon-wrapper { display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; /* Nowoczesny gradient tła dla ikony */ background: linear-gradient(135deg, #eff6ff, #dbeafe); color: #3b82f6; border-radius: 14px;
+
+    i {
+      font-size: 1.5rem;
+    }
+
+
+
+  }
+
+  .title-text {
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    span {
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+
+
+  }
+}
+
+/* Wykorzystanie CSS Grid do pozycjonowania inputów */
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+
+  /* Responsywność: na mniejszych ekranach układamy inputy jeden pod drugim */
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #334155;
+    margin-left: 0.25rem;
+  }
+
+  ::ng-deep .p-inputtext {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+
+    /* DODANE: Wymuszenie jasnego wyglądu inputów */
+    background-color: #f8fafc; /* Bardzo delikatny, chłodny szary (Tailwind slate-50) */
+    color: #1e293b;            /* Ciemnoszary kolor wpisywanego tekstu */
+    border: 1px solid #cbd5e1; /* Subtelne, jasnoszare obramowanie */
+
+    &:hover {
+      border-color: #94a3b8;
+    }
+
+    &:focus {
+      background-color: #ffffff; /* Czysta biel po kliknięciu (focus) */
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px #bfdbfe;
+      outline: none;
+    }
+  }
+
+  .error-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    margin-left: 0.25rem;
+
+    i {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+}
