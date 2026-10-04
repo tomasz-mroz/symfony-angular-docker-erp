@@ -19,7 +19,6 @@ class AppFixtures extends Fixture
         $user->setEmail('admin');
         $user->setRoles(['ROLE_ADMIN']);
 
-        // Szyfrowanie hasła
         $hashedPassword = $this->passwordHasher->hashPassword(
             $user,
             'secret123'
