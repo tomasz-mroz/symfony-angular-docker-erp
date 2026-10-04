@@ -6,13 +6,16 @@ import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import { MenuModule } from 'primeng/menu';
 import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../../shared/services/auth.service';
 
 interface NavItem {
   label: string;
   icon: string;
-  routerLink: string;
+  routerLink?: string;
   badge?: string;
+  children?: NavItem[];
+  expanded?: boolean;
 }
 
 @Component({
@@ -36,8 +39,7 @@ export class LayoutComponent {
 
   sidebarCollapsed = signal(false);
 
-  // Przykładowe zakładki (placeholdery pod przyszłe moduły)
-  navItems = [
+  navItems: NavItem[] = [
     {
       label: 'Dashboard',
       icon: 'pi pi-home',
@@ -46,13 +48,48 @@ export class LayoutComponent {
     {
       label: 'Pracownicy',
       icon: 'pi pi-users',
-      routerLink: '/pracownicy', // Jeśli masz widok listy, lub zostaw puste/przekieruj
-      children: [{ label: 'Dodaj', icon: 'pi pi-user-plus', routerLink: '/pracownicy/dodaj' }],
+      expanded: false,
+      children: [
+        { label: 'Lista', icon: 'pi pi-list', routerLink: '/pracownicy/lista' },
+        { label: 'Dodaj', icon: 'pi pi-user-plus', routerLink: '/pracownicy/dodaj' },
+      ],
+    },
+  ];
+
+  userMenuItems: MenuItem[] = [
+    {
+      label: 'Mój profil',
+      icon: 'pi pi-user',
+      command: () => {
+        console.log('Mój profil');
+      },
+    },
+    {
+      label: 'Powiadomienia',
+      icon: 'pi pi-bell',
+      command: () => {
+        console.log('Powiadomienia');
+      },
+    },
+    {
+      separator: true,
+    },
+    {
+      label: 'Wyloguj',
+      icon: 'pi pi-power-off',
+      styleClass: 'text-red-500',
+      command: () => {
+        this.onLogout();
+      },
     },
   ];
 
   toggleSidebar(): void {
     this.sidebarCollapsed.update((val) => !val);
+  }
+
+  toggleSubmenu(item: NavItem): void {
+    item.expanded = !item.expanded;
   }
 
   onLogout(): void {

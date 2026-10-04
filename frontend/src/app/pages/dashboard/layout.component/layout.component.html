@@ -1,6 +1,5 @@
 <div class="layout-wrapper" [class.layout-sidebar-collapsed]="sidebarCollapsed()">
 
-  <!-- Boczny pasek nawigacyjny (Sidebar) -->
   <aside class="layout-sidebar">
     <div class="sidebar-header">
       <div class="logo">
@@ -15,21 +14,38 @@
       <ul>
         @for (item of navItems; track item.label) {
           <li>
-            <a
-              [routerLink]="item.routerLink"
-              routerLinkActive="active-link"
-              [routerLinkActiveOptions]="{ exact: false }"
-              class="nav-item"
-              [pTooltip]="sidebarCollapsed() ? item.label : ''"
-              tooltipPosition="right"
-            >
-              <i [class]="item.icon"></i>
-              @if (!sidebarCollapsed()) {
-                <span class="nav-label">{{ item.label }}</span>
-              }
-            </a>
+            @if (item.children && item.children.length > 0) {
+              <a
+                class="nav-item"
+                [class.expanded]="item.expanded"
+                (click)="toggleSubmenu(item)"
+                [pTooltip]="sidebarCollapsed() ? item.label : ''"
+                tooltipPosition="right"
+                style="cursor: pointer;"
+              >
+                <i [class]="item.icon"></i>
+                @if (!sidebarCollapsed()) {
+                  <span class="nav-label">{{ item.label }}</span>
+                  <i [class]="item.expanded ? 'pi pi-chevron-up' : 'pi pi-chevron-down'" class="submenu-icon"></i>
+                }
+              </a>
+            } @else {
+              <a
+                [routerLink]="item.routerLink"
+                routerLinkActive="active-link"
+                [routerLinkActiveOptions]="{ exact: false }"
+                class="nav-item"
+                [pTooltip]="sidebarCollapsed() ? item.label : ''"
+                tooltipPosition="right"
+              >
+                <i [class]="item.icon"></i>
+                @if (!sidebarCollapsed()) {
+                  <span class="nav-label">{{ item.label }}</span>
+                }
+              </a>
+            }
 
-            @if (item.children && !sidebarCollapsed()) {
+            @if (item.children && !sidebarCollapsed() && item.expanded) {
               <ul class="sub-nav">
                 @for (child of item.children; track child.routerLink) {
                   <li>
@@ -52,10 +68,8 @@
     </nav>
   </aside>
 
-  <!-- Główny kontener aplikacji -->
   <div class="layout-main-container">
 
-    <!-- Górna belka (Topbar / Navbar) -->
     <header class="layout-topbar">
       <div class="topbar-left">
         <p-button
@@ -67,23 +81,16 @@
       </div>
 
       <div class="topbar-right">
-        <div class="user-profile">
+        <div class="user-profile" (click)="userMenu.toggle($event)" style="cursor: pointer;">
           <p-avatar icon="pi pi-user" shape="circle" styleClass="user-avatar" />
           <span class="user-name">Użytkownik</span>
+          <i class="pi pi-angle-down" style="font-size: 0.8rem; margin-left: 0.25rem;"></i>
         </div>
 
-        <p-button
-          icon="pi pi-power-off"
-          [text]="true"
-          severity="danger"
-          pTooltip="Wyloguj się"
-          tooltipPosition="bottom"
-          (onClick)="onLogout()"
-        />
+        <p-menu #userMenu [model]="userMenuItems" [popup]="true" />
       </div>
     </header>
 
-    <!-- Miejsce na dynamiczną treść (Dashboard, Zlecenia itp.) -->
     <main class="layout-content">
       <router-outlet></router-outlet>
     </main>
