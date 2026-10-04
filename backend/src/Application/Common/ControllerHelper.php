@@ -2,6 +2,7 @@
 
 namespace App\Application\Common;
 
+use App\Application\Common\Exception\InvalidFormDataException;
 use App\Entity\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -16,41 +17,46 @@ class ControllerHelper
         private RequestStack $requestStack,
         private TokenStorageInterface $tokenStorage,
         private FormFactoryInterface $formFactory,
-//        private UserRepositoryInterface $userRepository,
-//        private LoggerInterface $logger,
-//        private ErrorParser $errorParser
-    )
-    {
+        private FormErrorParser $errorParser,
+        private LoggerInterface $logger,
+    ) {
     }
 
-    public function getRequestData($returnArray = true)
+    public function getRequestData(bool $returnArray = true): array|object
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($request->headers->get('content-type') === 'application/json') {
-            $requestArray = json_decode($this->requestStack->getCurrentRequest()->getContent(), $returnArray);
+        if ($request === null) {
+            return $returnArray ? [] : new \stdClass();
+        }
 
-            return $requestArray !== null ? $requestArray : [];
+        if (str_contains((string) $request->headers->get('content-type'), 'application/json')) {
+            $data = json_decode($request->getContent(), $returnArray);
+
+            return $data ?? ($returnArray ? [] : new \stdClass());
         }
 
         return $request->request->all();
     }
 
-    public function getQueryData()
+    public function getQueryData(): array
     {
-        parse_str($this->requestStack->getCurrentRequest()->getQueryString(), $returnArray);
+        $request = $this->requestStack->getCurrentRequest();
 
-        return $returnArray;
+        if ($request === null) {
+            return [];
+        }
+
+        parse_str($request->getQueryString() ?? '', $result);
+
+        return $result;
     }
 
-    /**
-     * @return UserInterface|null
-     */
     public function getCurrentUser(): ?UserInterface
     {
         $token = $this->tokenStorage->getToken();
 
-        if (!$token) {
+        if ($token === null) {
             return null;
         }
 
@@ -66,38 +72,35 @@ class ControllerHelper
         return $user instanceof User ? $user : null;
     }
 
-
-
-    public function getRequest(): Request
+    public function getRequest(): ?Request
     {
         return $this->requestStack->getCurrentRequest();
     }
 
     public function getRequestContent(): string
     {
-        return $this->requestStack->getCurrentRequest()->getContent();
+        return $this->requestStack->getCurrentRequest()?->getContent() ?? '';
     }
 
     public function createAndSubmit(
         string $command,
         string $form,
         bool $validate = false,
-        mixed $constructorArgument = null,
-        mixed $secondConstructorArgument = null
-    ): object
-    {
-        $commandObject = new $command($constructorArgument, $secondConstructorArgument);
+        mixed ...$constructorArguments,
+    ): object {
+        $commandObject = new $command(...$constructorArguments);
 
-        $form = $this->formFactory->create(type: $form, data: $commandObject);
-        $form->submit($this->getRequestData());
+        $formObject = $this->formFactory->create(type: $form, data: $commandObject);
+        $formObject->submit($this->getRequestData());
 
-//        if ($validate and !$form->isValid()) {
-//            $this->logger->alert(
-//                'Błąd formularza :: ' . $command . ' :: ' .
-//                json_encode($this->errorParser->getArray($form))
-//            );
-//            throw new InvalidFormDataException($form);
-//        }
+        if ($validate && !$formObject->isValid()) {
+            $this->logger->alert(
+                'Form error :: ' . $command . ' :: ' .
+                json_encode($this->errorParser->getArray($formObject))
+            );
+
+            throw new InvalidFormDataException($formObject);
+        }
 
         return $commandObject;
     }

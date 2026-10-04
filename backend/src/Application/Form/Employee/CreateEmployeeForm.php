@@ -14,12 +14,17 @@ class CreateEmployeeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('email', TextType::class, [
+                'constraints' => [new NotBlank()]
+            ])
             ->add('firstName', TextType::class, [
                 'constraints' => [new NotBlank()]
             ])
-            ->add('secondName', TextType::class, [
+            ->add('lastName', TextType::class, [
                 'constraints' => [new NotBlank()]
-            ]);
+            ])
+            ->add('role', TextType::class
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

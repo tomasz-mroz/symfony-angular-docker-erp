@@ -13,6 +13,7 @@
         "lexik/jwt-authentication-bundle": "^3.2",
         "nelmio/cors-bundle": "^2.6",
         "ramsey/uuid-doctrine": "^2.1",
+        "symfony/amqp-messenger": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
         "symfony/flex": "^2",
