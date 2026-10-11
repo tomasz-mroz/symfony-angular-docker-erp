@@ -86,7 +86,7 @@ class ControllerHelper
         string $command,
         string $form,
         bool $validate = false,
-        mixed ...$constructorArguments,
+        array $constructorArguments = [],
     ): object {
         $commandObject = new $command(...$constructorArguments);
 

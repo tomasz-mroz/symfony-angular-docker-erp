@@ -5,6 +5,7 @@ import { authGuard } from './shared/guards/auth.guard';
 import { LayoutComponent } from './pages/dashboard/layout.component/layout.component';
 import { EmployeeAddComponent } from './pages/employees/employee-add.component/employee-add.component';
 import { EmployeeListComponent } from './pages/employees/employee-list.component/employee-list.component';
+import { AllEmployeeListComponent } from './pages/employees/all-employee-list.component/all-employee-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,7 +17,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
 
-      { path: 'pracownicy', component: EmployeeListComponent },
+      { path: 'pracownicy', component: AllEmployeeListComponent },
       { path: 'pracownicy/dodaj', component: EmployeeAddComponent },
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

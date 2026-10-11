@@ -47,16 +47,31 @@
         </div>
 
         <div class="input-group full-width">
-          <label for="position">Stanowisko</label>
+          <label for="role">Stanowisko</label>
           <input
             pInputText
-            id="position"
-            formControlName="position"
+            id="role"
+            formControlName="role"
             placeholder="np. Frontend Developer"
-            [class.ng-invalid]="employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched"
-            [class.ng-dirty]="employeeForm.get('position')?.touched"
+            [class.ng-invalid]="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched"
+            [class.ng-dirty]="employeeForm.get('role')?.touched"
           />
-          @if (employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched) {
+          @if (employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched) {
+            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
+          }
+        </div>
+
+        <div class="input-group full-width">
+          <label for="email">E-Mail</label>
+          <input
+            pInputText
+            id="email"
+            formControlName="email"
+            placeholder="np. email@gmail.com "
+            [class.ng-invalid]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched"
+            [class.ng-dirty]="employeeForm.get('email')?.touched"
+          />
+          @if (employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched) {
             <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
           }
         </div>

@@ -40,8 +40,8 @@
           <th pSortableColumn="lastName" style="width: 30%;">
             Nazwisko <p-sortIcon field="lastName"></p-sortIcon>
           </th>
-          <th pSortableColumn="position" style="width: 40%;">
-            Stanowisko <p-sortIcon field="position"></p-sortIcon>
+          <th pSortableColumn="role" style="width: 40%;">
+            Stanowisko <p-sortIcon field="role"></p-sortIcon>
           </th>
         </tr>
 
@@ -68,7 +68,7 @@
           <th>
             <p-columnFilter
               type="text"
-              field="position"
+              field="role"
               placeholder="Szukaj stanowiska"
               ariaLabel="Filtruj po stanowisku"
               [showMenu]="false">
@@ -88,7 +88,7 @@
           </td>
           <td>
             <!-- Drobny akcent wizualny na stanowisko -->
-            <span class="position-badge">{{ employee.position }}</span>
+            <span class="position-badge">{{ employee.role }}</span>
           </td>
         </tr>
       </ng-template>

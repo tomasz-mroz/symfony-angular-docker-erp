@@ -50,7 +50,7 @@ export class LayoutComponent {
       icon: 'pi pi-users',
       expanded: false,
       children: [
-        { label: 'Lista', icon: 'pi pi-list', routerLink: '/pracownicy/lista' },
+        { label: 'Lista', icon: 'pi pi-list', routerLink: '/pracownicy' },
         { label: 'Dodaj', icon: 'pi pi-user-plus', routerLink: '/pracownicy/dodaj' },
       ],
     },
