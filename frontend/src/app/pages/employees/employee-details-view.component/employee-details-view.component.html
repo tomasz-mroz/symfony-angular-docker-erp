@@ -1,1 +1,41 @@
-<p>employee-details-view.component works!</p>
+@if (employee(); as emp) {
+  <div class="employee-details-view-container">
+
+    <div class="id-info">
+      <span class="label">UUID</span>
+      <span class="value">{{ emp.uuid }}</span>
+    </div>
+
+    <div class="actions-row">
+      <p-button
+        label="Edytuj"
+        icon="pi pi-pencil"
+        severity="secondary"
+        [outlined]="true"
+        (onClick)="modify()"
+      />
+      <p-button
+        label="Usuń"
+        icon="pi pi-trash"
+        severity="danger"
+        [outlined]="true"
+        (onClick)="delete()"
+      />
+    </div>
+
+    <p-card styleClass="employee-card">
+      <h3>Dane pracownika</h3>
+
+      <div class="details-grid">
+        <app-detail header="Imię" [value]="emp.firstName" />
+        <app-detail header="Nazwisko" [value]="emp.lastName" />
+        <app-detail header="Rola" [value]="emp.role" />
+        <app-detail header="E-mail" [value]="emp.email" />
+      </div>
+    </p-card>
+
+  </div>
+}
+
+<p-toast position="bottom-right" />
+<p-confirmDialog />

@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: EmployeeRepository::class)]
 #[ORM\Table(name: 'employee')]
@@ -13,8 +11,8 @@ use Ramsey\Uuid\UuidInterface;
 class Employee
 {
     #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    protected UuidInterface $uuid;
+    #[ORM\Column(type: "string", length: 36, unique: true)]
+    private string $uuid;
 
     #[ORM\Column(length: 100)]
     private ?string $firstName = null;
@@ -30,15 +28,15 @@ class Employee
 
     public function __construct()
     {
-        $this->uuid = Uuid::uuid4();
+        $this->uuid = Uuid::uuid4()->toString();
     }
 
-    public function getUuid(): UuidInterface
+    public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    public function setUuid(UuidInterface $uuid): static
+    public function setUuid(string $uuid): static
     {
         $this->uuid = $uuid;
         return $this;

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep .breadcrumb {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0;
+
+  .p-breadcrumb-list {
+    gap: 0.25rem;
+  }
+
+  .p-breadcrumb-item-label {
+    font-weight: 500;
+    color: var(--p-text-color);
+  }
+
+  .p-breadcrumb-item:last-child .p-breadcrumb-item-label {
+    font-weight: 700;
+    color: var(--p-primary-color);
+  }
+
+  .p-breadcrumb-separator {
+    color: var(--p-text-muted-color);
+  }
+}

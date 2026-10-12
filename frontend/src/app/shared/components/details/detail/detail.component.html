@@ -1,0 +1,26 @@
+<div class="detail">
+  @if (header()) {
+    <span class="detail-label">{{ header() }}</span>
+  }
+
+  <div class="detail-value">
+    @if (link()) {
+      <a
+        class="detail-link"
+        [routerLink]="link()"
+      >{{ displayValue() }}</a>
+    } @else if (safeExternalLink()) {
+      <a
+        class="detail-link"
+        [href]="safeExternalLink()"
+      >{{ displayValue() }}</a>
+    } @else if (isEmpty()) {
+      <span class="detail-empty">{{ displayValue() }}</span>
+    } @else {
+      <span class="detail-text">{{ displayValue() }}</span>
+    }
+
+    <!-- Slot na niestandardową treść (np. chipy tagów) -->
+    <ng-content />
+  </div>
+</div>

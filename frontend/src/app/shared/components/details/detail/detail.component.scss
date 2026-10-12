@@ -1,0 +1,39 @@
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--p-text-muted-color);
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: var(--p-text-color);
+  word-break: break-word;
+}
+
+.detail-text {
+  color: var(--p-text-color);
+}
+
+.detail-empty {
+  color: var(--p-text-muted-color);
+  font-style: italic;
+}
+
+.detail-link {
+  color: var(--p-primary-color);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

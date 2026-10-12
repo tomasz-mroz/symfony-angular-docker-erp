@@ -1,1 +1,34 @@
-<p>employee-details.component works!</p>
+<app-breadcrumb
+  master="Struktura sieci"
+  parentName="Pracownik"
+  name="Szczegóły"
+/>
+
+<p-tabs value="0">
+  <p-tablist>
+    <p-tab value="0">Dane</p-tab>
+  </p-tablist>
+
+  <p-tabpanels>
+    <p-tabpanel value="0">
+      @if (!modify()) {
+        @if (employee.asObservable() | async; as empData) {
+          <app-employee-details-view
+            [employee]="empData"
+            (modifyClicked)="modify.set(true)"
+          />
+        }
+      }
+    </p-tabpanel>
+
+    <!-- <p-tabpanel value="1">
+      <app-log-list
+        [entityType]="'employee'"
+        [entity]="employee.asObservable()"
+      />
+    </p-tabpanel> -->
+  </p-tabpanels>
+</p-tabs>
+
+<p-toast position="bottom-right" />
+<p-confirmDialog />

@@ -1,0 +1,89 @@
+@if (address(); as addr) {
+  <p-card styleClass="detail-address-card">
+    @if (header()) {
+      <h3 class="detail-address-header">{{ header() }}</h3>
+    }
+
+    <div class="detail-address-grid">
+      <div class="row">
+        <app-detail
+          class="col-50"
+          header="Ulica"
+          [value]="addr.street"
+        />
+
+        <div class="col-50 nested-row">
+          <app-detail
+            class="col-50"
+            header="Nr budynku"
+            [value]="addr.houseNumber"
+          />
+          <app-detail
+            class="col-50"
+            header="Nr lokalu"
+            [value]="addr.apartmentNumber"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        @if (hasPostCity()) {
+          <app-detail
+            class="col-50"
+            header="Poczta"
+            [value]="addr.postCity"
+          />
+        } @else {
+          <app-detail
+            class="col-50"
+            header="Miejscowość"
+            [value]="addr.city"
+          />
+        }
+        <app-detail
+          class="col-50"
+          header="Kod pocztowy"
+          [value]="addr.zipCode"
+        />
+      </div>
+
+      @if (hasState()) {
+        <div class="row">
+          @if (hasPostCity()) {
+            <app-detail
+              class="col-50"
+              header="Miejscowość"
+              [value]="addr.city"
+            />
+            <app-detail
+              class="col-50"
+              header="Województwo"
+              [value]="addr.state?.name"
+            />
+          } @else {
+            <app-detail
+              class="col-100"
+              header="Województwo"
+              [value]="addr.state?.name"
+            />
+          }
+        </div>
+      }
+
+      @if (hasDistrictOrCommune()) {
+        <div class="row">
+          <app-detail
+            class="col-50"
+            header="Powiat"
+            [value]="addr.district"
+          />
+          <app-detail
+            class="col-50"
+            header="Gmina"
+            [value]="addr.commune"
+          />
+        </div>
+      }
+    </div>
+  </p-card>
+}

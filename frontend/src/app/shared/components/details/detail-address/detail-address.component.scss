@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+:host ::ng-deep .detail-address-card {
+  .p-card-body {
+    padding: 1rem;
+  }
+}
+
+.detail-address-header {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.detail-address-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  > * {
+    min-width: 0;
+  }
+}
+
+.nested-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.col-50 {
+  flex: 1 1 calc(50% - 0.5rem);
+  min-width: 0;
+}
+
+.col-100 {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .col-50,
+  .nested-row .col-50 {
+    flex: 1 1 100%;
+  }
+}

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, first, Observable, ReplaySubject, tap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { CountedAndPaginated } from '../interface/response/counted-and-paginated';
 import { FilterService } from './filter.service';
@@ -39,6 +39,10 @@ export class EmployeeService {
 
   public get(uuid: string): Observable<Employee> {
     return this.http.get<Employee>(`/api/employee/${uuid}`);
+  }
+
+  public delete(uuid: string): Observable<any> {
+    return this.http.delete(`/api/employee/${uuid}`).pipe(first());
   }
 
   public loadList(

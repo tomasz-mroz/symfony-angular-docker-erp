@@ -4,8 +4,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component/dashbo
 import { authGuard } from './shared/guards/auth.guard';
 import { LayoutComponent } from './pages/dashboard/layout.component/layout.component';
 import { EmployeeAddComponent } from './pages/employees/employee-add.component/employee-add.component';
-import { EmployeeListComponent } from './pages/employees/employee-list.component/employee-list.component';
 import { AllEmployeeListComponent } from './pages/employees/all-employee-list.component/all-employee-list.component';
+import { EmployeeDetailsComponent } from './pages/employees/employee-details.component/employee-details.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,6 +19,7 @@ export const routes: Routes = [
 
       { path: 'pracownicy', component: AllEmployeeListComponent },
       { path: 'pracownicy/dodaj', component: EmployeeAddComponent },
+      { path: 'pracownicy/szczegoly/:id', component: EmployeeDetailsComponent },
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

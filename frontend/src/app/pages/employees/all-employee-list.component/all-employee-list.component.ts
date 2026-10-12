@@ -5,11 +5,12 @@ import { EmployeeService } from '../../../shared/services/employee.service';
 import { CountedAndPaginated } from '../../../shared/interface/response/counted-and-paginated';
 import { Observable } from 'rxjs';
 import { Employee } from '../../../shared/interface/employee';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-all-employee-list',
   standalone: true,
-  imports: [CommonModule, TableModule],
+  imports: [CommonModule, TableModule, RouterLink],
   templateUrl: './all-employee-list.component.html',
   styleUrl: './all-employee-list.component.scss',
 })

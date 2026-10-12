@@ -1,0 +1,10 @@
+objects:
+    - name: employee
+      fields:
+          - path: firstName
+            displayName: Imię
+            type: string
+
+          - path: lastName
+            displayName: Nazwisko
+            type: string

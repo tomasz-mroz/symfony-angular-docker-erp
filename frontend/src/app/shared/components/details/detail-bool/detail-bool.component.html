@@ -1,0 +1,17 @@
+<div class="detail-bool">
+  @if (header()) {
+    <span class="detail-bool-label">{{ header() }}</span>
+  }
+
+  <div class="detail-bool-value">
+    @if (isEmpty()) {
+      <span class="detail-bool-empty">—</span>
+    } @else {
+      <p-tag
+        [value]="label()"
+        [severity]="severity()"
+        [icon]="icon()"
+      />
+    }
+  </div>
+</div>

@@ -4,21 +4,29 @@
     [paginator]="true"
     [rows]="response.pagination.pageSize"
     [totalRecords]="response.pagination.total"
-    [responsiveLayout]="'scroll'">
-
+    [responsiveLayout]="'scroll'"
+    dataKey="uuid"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="firstName">Imię <p-sortIcon field="firstName"></p-sortIcon></th>
-        <th pSortableColumn="lastName">Nazwisko <p-sortIcon field="lastName"></p-sortIcon></th>
-        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="firstName">Imię <p-sortIcon field="firstName" /></th>
+        <th pSortableColumn="lastName">Nazwisko <p-sortIcon field="lastName" /></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email" /></th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-employee>
       <tr>
-        <td>{{ employee.first_name }}</td>
-        <td>{{ employee.last_name }}</td>
-        <td>{{ employee.email }}</td>
+        <td>{{ employee.firstName }}</td>
+        <td>{{ employee.lastName }}</td>
+        <td>
+          <a
+            class="employee-link"
+            [routerLink]="['/pracownicy/szczegoly', employee.uuid]"
+          >
+            {{ employee.email }}
+          </a>
+        </td>
       </tr>
     </ng-template>
 

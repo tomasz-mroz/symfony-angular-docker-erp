@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as Serializer;
 #[ORM\Index(name: 'idx_log_deleted_data_entity', columns: ['entity', 'entity_id'])]
 class LogDeletedData
 {
-    public const ENTITY_PROJECT = 'project';
+    public const ENTITY_EMPLOYEE = 'employee';
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
