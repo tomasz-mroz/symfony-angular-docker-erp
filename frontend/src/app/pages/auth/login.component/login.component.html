@@ -2,12 +2,10 @@
   <div class="login-card-wrapper">
     <p-card styleClass="p-shadow-6 custom-login-card">
 
-      <!-- Nagłówek marki / aplikacji -->
       <div class="brand-header">
         <p>Zaloguj się, aby kontynuować</p>
       </div>
 
-      <!-- Komunikat błędu z serwera -->
       @if (errorMessage()) {
         <div class="alert-error">
           <i class="pi pi-exclamation-circle"></i>
@@ -42,7 +40,6 @@
           }
         </div>
 
-        <!-- Pole Hasło -->
         <div class="field">
           <div class="field-header">
             <label for="password">Hasło</label>
@@ -62,10 +59,9 @@
           }
         </div>
 
-        <!-- Przycisk Zaloguj -->
         <p-button
           type="submit"
-          label="Zaloguj się"
+          label="Zaloguj"
           icon="pi pi-sign-in"
           [loading]="loading()"
           styleClass="w-full submit-btn"

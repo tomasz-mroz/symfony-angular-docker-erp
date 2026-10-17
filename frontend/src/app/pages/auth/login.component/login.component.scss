@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #172554 100%);
+  background: radial-gradient(circle at top right, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%);
   padding: 1.5rem;
 }
 
@@ -19,11 +19,9 @@
 
   ::ng-deep .custom-login-card {
     border-radius: 16px;
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
     overflow: hidden;
 
     .p-card-body {
@@ -32,7 +30,6 @@
   }
 }
 
-/* Nagłówek */
 .brand-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -40,29 +37,29 @@
   p {
     margin: 0;
     font-size: 0.95rem;
-    color: #94a3b8;
+    color: #475569;
+    font-weight: 500;
   }
 }
 
-/* Błąd serwera */
 .alert-error {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background-color: rgba(220, 38, 38, 0.15);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #f87171;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
   padding: 0.875rem 1rem;
   border-radius: 10px;
   font-size: 0.875rem;
   margin-bottom: 1.5rem;
+  font-weight: 500;
 
   i {
     font-size: 1.1rem;
   }
 }
 
-/* Formularz */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -78,7 +75,7 @@
   label {
     font-weight: 600;
     font-size: 0.875rem;
-    color: #cbd5e1;
+    color: #1e293b;
   }
 
   .field-header {
@@ -88,67 +85,94 @@
 
     .forgot-link {
       font-size: 0.8rem;
-      color: white;
+      color: #2563eb;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.2s ease;
 
       &:hover {
-        color: #93c5fd;
+        color: #1d4ed8;
         text-decoration: underline;
       }
     }
   }
 
   .error-text {
-    color: #f87171;
+    color: #dc2626;
     font-size: 0.8rem;
     margin-top: 0.2rem;
+    font-weight: 500;
   }
 }
 
-/* Globalna stylizacja i wyrównanie pól PrimeNG */
 ::ng-deep {
-  /* Wymuszenie pełnej szerokości dla p-password */
   .p-password {
     width: 100% !important;
     display: flex !important;
   }
 
-  /* Jednakowe wymiary i marginesy wewnętrzne dla WSZYSTKICH pól tekstowych */
   .p-inputtext {
     width: 100% !important;
     box-sizing: border-box !important;
-    background: rgba(15, 23, 42, 0.5) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    color: #f8fafc !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    caret-color: #0f172a !important;
     border-radius: 8px;
-    padding: 0.75rem 1rem !important; /* Jednakowy odstęp tekst-krawędź w obu polach */
+    padding: 0.75rem 1rem !important;
     transition: all 0.2s ease;
 
-    &:enabled:focus {
-      border-color: #60a5fa !important;
-      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2) !important;
+    &:hover {
+      border-color: #94a3b8 !important;
+    }
+
+    &:focus {
+      background: #ffffff !important;
+      border-color: #2563eb !important;
+      color: #0f172a !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
     }
 
     &::placeholder {
-      color: #64748b !important;
+      color: #94a3b8 !important;
+      opacity: 1;
     }
   }
 
-  /* Przycisk wysłania */
+  .p-password .p-password-show-icon,
+  .p-password .p-password-hide-icon {
+    color: #64748b !important;
+
+    &:hover {
+      color: #0f172a !important;
+    }
+  }
+
   .submit-btn {
     margin-top: 0.5rem;
     padding: 0.75rem 1rem;
     border-radius: 8px !important;
     font-weight: 600;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
-    border: none !important;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    background: #2563eb !important;
+    border: 1px solid #2563eb !important;
+
+    .p-button-label,
+    .p-button-icon {
+      color: #ffffff !important;
+    }
+
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
+      background: #1d4ed8 !important;
+      border-color: #1d4ed8 !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
+    }
+
+    &:active {
+      transform: translateY(0);
     }
   }
 }
