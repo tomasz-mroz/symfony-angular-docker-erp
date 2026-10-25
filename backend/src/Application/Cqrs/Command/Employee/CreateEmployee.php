@@ -8,7 +8,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class CreateEmployee implements UuidResource
 {
-    private UuidInterface $uuid;
+    // Zmienione z private na protected, aby klasy dziedziczące mogły z tego korzystać
+    protected UuidInterface $uuid;
 
     private ?string $email = null;
     private ?string $firstName = null;

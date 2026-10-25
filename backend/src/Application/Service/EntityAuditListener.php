@@ -49,7 +49,7 @@ class EntityAuditListener
 
         $log = new Log();
         $log->setEntity($entityType);
-        $log->setEntityId((string) $entity->getId());
+        $log->setEntityId((string) $entity->getUuid());
         $log->setPrevious($previous);
         $log->setChanges($changes);
         $log->setUser($user instanceof User ? $user : null);
