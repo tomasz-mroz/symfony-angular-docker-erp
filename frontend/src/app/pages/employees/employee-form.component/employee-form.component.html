@@ -4,11 +4,11 @@
     <ng-template pTemplate="title">
       <div class="card-title">
         <div class="icon-wrapper">
-          <i class="pi pi-user-plus"></i>
+          <i [class]="isEditMode ? 'pi pi-user-edit' : 'pi pi-user-plus'"></i>
         </div>
         <div class="title-text">
-          <h2>Nowy pracownik</h2>
-          <span>Wprowadź dane, aby dodać osobę do systemu</span>
+          <h2>{{ isEditMode ? 'Edycja pracownika' : 'Nowy pracownik' }}</h2>
+          <span>{{ isEditMode ? 'Zaktualizuj dane w systemie' : 'Wprowadź dane, aby dodać osobę do systemu' }}</span>
         </div>
       </div>
     </ng-template>
@@ -23,8 +23,6 @@
             id="firstName"
             formControlName="firstName"
             placeholder="np. Jan"
-            [class.ng-invalid]="employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched"
-            [class.ng-dirty]="employeeForm.get('firstName')?.touched"
           />
           @if (employeeForm.get('firstName')?.invalid && employeeForm.get('firstName')?.touched) {
             <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
@@ -38,8 +36,6 @@
             id="lastName"
             formControlName="lastName"
             placeholder="np. Kowalski"
-            [class.ng-invalid]="employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched"
-            [class.ng-dirty]="employeeForm.get('lastName')?.touched"
           />
           @if (employeeForm.get('lastName')?.invalid && employeeForm.get('lastName')?.touched) {
             <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
@@ -53,8 +49,6 @@
             id="role"
             formControlName="role"
             placeholder="np. Frontend Developer"
-            [class.ng-invalid]="employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched"
-            [class.ng-dirty]="employeeForm.get('role')?.touched"
           />
           @if (employeeForm.get('role')?.invalid && employeeForm.get('role')?.touched) {
             <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
@@ -67,12 +61,10 @@
             pInputText
             id="email"
             formControlName="email"
-            placeholder="np. email@gmail.com "
-            [class.ng-invalid]="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched"
-            [class.ng-dirty]="employeeForm.get('email')?.touched"
+            placeholder="np. email@gmail.com"
           />
           @if (employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched) {
-            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Pole wymagane</small>
+            <small class="error-msg"><i class="pi pi-exclamation-circle"></i> Wprowadź poprawny e-mail</small>
           }
         </div>
 
@@ -84,14 +76,15 @@
           icon="pi pi-times"
           severity="secondary"
           [outlined]="true"
-          (onClick)="employeeForm.reset()"
+          (onClick)="onCancel()"
           type="button">
         </p-button>
         <p-button
-          label="Zapisz pracownika"
+          [label]="isEditMode ? 'Zapisz zmiany' : 'Zapisz pracownika'"
           icon="pi pi-save"
           type="submit"
-          [disabled]="employeeForm.invalid">
+          [disabled]="employeeForm.invalid || processingRequest"
+          [loading]="processingRequest">
         </p-button>
       </div>
     </form>

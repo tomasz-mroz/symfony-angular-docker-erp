@@ -7,26 +7,35 @@
 <p-tabs value="0">
   <p-tablist>
     <p-tab value="0">Dane</p-tab>
+    <p-tab value="1">Historia zmian</p-tab>
   </p-tablist>
 
   <p-tabpanels>
     <p-tabpanel value="0">
       @if (!modify()) {
+        <!-- Tryb widoku (Details) -->
         @if (employee.asObservable() | async; as empData) {
           <app-employee-details-view
             [employee]="empData"
             (modifyClicked)="modify.set(true)"
           />
         }
+      } @else {
+        @if (employee.asObservable() | async; as empData) {
+          <app-employee-form
+            [employeeData]="empData"
+            (formClosed)="onModifyClosed()"
+          />
+        }
       }
     </p-tabpanel>
 
-    <!-- <p-tabpanel value="1">
+    <p-tabpanel value="1">
       <app-log-list
         [entityType]="'employee'"
         [entity]="employee.asObservable()"
       />
-    </p-tabpanel> -->
+    </p-tabpanel>
   </p-tabpanels>
 </p-tabs>
 

@@ -7,6 +7,7 @@ import { ReplaySubject, takeUntil } from 'rxjs';
 import { BreadcrumbComponent } from '../../../shared/components/breadcrumb.component/breadcrumb.component';
 import { LogListComponent } from '../../logs/log-list.component/log-list.component';
 import { EmployeeDetailsViewComponent } from '../employee-details-view.component/employee-details-view.component';
+import { EmployeeFormComponent } from '../employee-form.component/employee-form.component';
 
 import { EmployeeService } from '../../../shared/services/employee.service';
 
@@ -28,6 +29,7 @@ import { Employee } from '../../../shared/interface/employee';
     ConfirmDialogModule,
     BreadcrumbComponent,
     EmployeeDetailsViewComponent,
+    EmployeeFormComponent,
     LogListComponent,
   ],
   providers: [MessageService, ConfirmationService, DialogService],
@@ -42,7 +44,7 @@ export class EmployeeDetailsComponent implements OnInit, OnDestroy {
   private readonly destroyed$ = new ReplaySubject<boolean>(1);
 
   readonly modify = signal(false);
-  readonly employee = new ReplaySubject<Employee>(1); // Tylko ReplaySubject!
+  readonly employee = new ReplaySubject<Employee>(1);
 
   uuid: string | null = null;
 

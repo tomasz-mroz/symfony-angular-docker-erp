@@ -30,7 +30,6 @@ export class EmployeeFormComponent implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly employeeService = inject(EmployeeService);
 
-  // Jeśli przekażemy pracownika, formularz automatycznie przełącza się w tryb EDYCJI
   @Input() employeeData?: Employee | null;
   @Output() formClosed = new EventEmitter<void>();
 
@@ -70,7 +69,6 @@ export class EmployeeFormComponent implements OnInit {
     const formValues = this.employeeForm.value;
 
     if (this.isEditMode && this.employeeData?.uuid) {
-      // --- TRYB EDYCJI (UPDATE) ---
       this.employeeService.update(this.employeeData.uuid, formValues).subscribe({
         next: () => {
           this.messageService.add({
@@ -79,7 +77,7 @@ export class EmployeeFormComponent implements OnInit {
             detail: 'Dane pracownika zostały zaktualizowane',
             life: 2000,
           });
-          this.formClosed.emit(); // Informujemy komponent nadrzędny o zakończeniu edycji
+          this.formClosed.emit();
         },
         error: () => {
           this.processingRequest = false;
@@ -92,7 +90,6 @@ export class EmployeeFormComponent implements OnInit {
         },
       });
     } else {
-      // --- TRYB TWORZENIA (CREATE) ---
       this.employeeService.create(formValues).subscribe({
         next: () => {
           this.messageService.add({

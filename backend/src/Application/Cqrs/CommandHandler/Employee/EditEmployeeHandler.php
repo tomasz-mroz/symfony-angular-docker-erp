@@ -18,7 +18,7 @@ class EditEmployeeHandler
 
     public function __invoke(EditEmployee $command): void
     {
-        $employee = $this->employeeRepository->findOneBy(['uuid' => $command->getUuid()]);
+        $employee = $this->employeeRepository->find($command->getUuid());
 
         if (!$employee) {
             throw new NotFoundHttpException('Pracownik o podanym UUID nie istnieje.');
