@@ -1,9 +1,40 @@
+/* --- ZMIENNE GLOBALNE (LIGHT / DARK) --- */
+:root {
+  --app-bg-color: #f3f4f6;        /* Jasne tło */
+  --text-primary: #1f2937;        /* Ciemny tekst */
+  --primary-color: #3b82f6;       /* Niebieski akcent */
+  --surface-card: #ffffff;        /* Tło kart/paneli */
+  --surface-border: #e2e8f0;      /* Kolor ramek */
+  --sidebar-bg: #ffffff;          /* Tło sidebara */
+  --topbar-bg: #ffffff;           /* Tło topbaru */
+  --nav-item-color: #475569;      /* Kolor elementów menu */
+  --nav-item-hover: #f1f5f9;      /* Hover menu */
+  --input-bg: #f8fafc;            /* Tło inputów */
+  --input-text: #1e293b;          /* Tekst w inputach */
+  --input-border: #cbd5e1;        /* Ramka inputów */
+}
+
+body.dark {
+  --app-bg-color: #0f172a;        /* Ciemne tło (Tailwind slate-900) */
+  --text-primary: #f8fafc;        /* Jasny tekst */
+  --primary-color: #60a5fa;       /* Jaśniejszy niebieski */
+  --surface-card: #1e293b;        /* Ciemne tło kart */
+  --surface-border: #334155;      /* Ciemne ramki */
+  --sidebar-bg: #1e293b;          /* Ciemny sidebar */
+  --topbar-bg: #1e293b;           /* Ciemny topbar */
+  --nav-item-color: #94a3b8;      /* Jasny tekst elementów menu */
+  --nav-item-hover: #334155;      /* Hover w ciemnym trybie */
+  --input-bg: #0f172a;            /* Ciemne tło inputów */
+  --input-text: #f8fafc;          /* Jasny tekst w inputach */
+  --input-border: #475569;        /* Ciemna ramka inputów */
+}
+
 /* Zablokowanie zaznaczania tekstu na całej stronie */
 body {
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none;    /* Firefox */
-  -ms-user-select: none;     /* IE10+/Edge */
-  user-select: none;         /* Standard */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 input, textarea, select, [contenteditable="true"] {
@@ -14,12 +45,6 @@ input, textarea, select, [contenteditable="true"] {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-:root {
-  --app-bg-color: #f3f4f6; /* Jasnoszare tło dla całej aplikacji (Tailwind gray-100) */
-  --text-primary: #1f2937; /* Ciemnoszary tekst, łagodniejszy niż czysty czarny */
-  --primary-color: #3b82f6; /* Główny niebieski akcent */
-}
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -37,33 +62,77 @@ body {
   background-color: var(--app-bg-color);
   color: var(--text-primary);
   line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Style dynamiczne dla layoutu bazujące na zmiennych */
+.layout-sidebar {
+  background-color: var(--sidebar-bg) !important;
+  border-right-color: var(--surface-border) !important;
+}
+
+.layout-topbar {
+  background-color: var(--topbar-bg) !important;
+  border-bottom-color: var(--surface-border) !important;
+}
+
+.sidebar-header .logo {
+  color: var(--primary-color);
+}
+
+.sidebar-nav .nav-item {
+  color: var(--nav-item-color);
+
+  i {
+    color: var(--nav-item-color);
+  }
+
+  &:hover {
+    background-color: var(--nav-item-hover) !important;
+    color: var(--text-primary) !important;
+  }
+}
+
+.topbar-left .topbar-nav .topbar-nav-item {
+  color: var(--nav-item-color);
+
+  &:hover {
+    background-color: var(--nav-item-hover);
+    color: var(--text-primary);
+  }
+
+  &.active {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--primary-color);
+  }
+}
+
+.user-profile {
+  color: var(--text-primary) !important;
+}
+
+/* Paski przewijania */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--surface-border);
   border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--primary-color);
 }
 
 *:focus:not(:focus-visible) {
   outline: none;
 }
-
 *:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
@@ -74,75 +143,25 @@ a {
   color: inherit;
 }
 
-.p-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  border-radius: 8px !important;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: all 0.2s ease-in-out !important;
-}
-
-.p-button .p-button-icon-left,
-.p-button .p-button-icon-right {
-  margin: 0 !important;
-}
-
-.p-button .p-button-label {
-  flex: none;
-  font-weight: 500;
-  text-align: center;
-}
-
-.p-button:not(.p-disabled):not(.p-button-text):not(.p-button-outlined):hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-}
-
-.p-button:not(.p-disabled):active {
-  transform: translateY(1px);
-  box-shadow: none !important;
-}
-
-.p-button.p-button-text:not(.p-disabled):hover {
-  background-color: rgba(0, 0, 0, 0.04) !important;
-  transform: none;
-}
-
+/* PrimeNG Inputs dostosowane do zmiennych */
 .p-inputtext {
-  background-color: #f8fafc !important;
-  color: #1e293b !important;
-  border: 1px solid #cbd5e1 !important;
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border: 1px solid var(--input-border) !important;
   border-radius: 8px !important;
   padding: 0.75rem 1rem !important;
   transition: all 0.2s ease !important;
+  caret-color: var(--input-text) !important;
 
   &:hover {
-    border-color: #94a3b8 !important;
+    border-color: var(--primary-color) !important;
   }
 
   &:focus {
-    color: #1e293b !important;            /* ← DODAJ TO */
-    background-color: #ffffff !important;
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+    background-color: var(--input-bg) !important;
+    color: var(--input-text) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
     outline: none !important;
   }
-}
-
-.p-inputtext {
-  caret-color: #1e293b !important;
-}
-
-.p-inputtext:-webkit-autofill,
-.p-inputtext:-webkit-autofill:hover,
-.p-inputtext:-webkit-autofill:focus,
-.p-inputtext:-webkit-autofill:active {
-  -webkit-text-fill-color: #1e293b !important;
-  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
-  box-shadow: 0 0 0 1000px #ffffff inset !important;
-  transition: background-color 9999s ease-in-out 0s;
-  caret-color: #1e293b !important;
 }

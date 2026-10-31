@@ -12,7 +12,7 @@
 
     <nav class="sidebar-nav">
       <ul>
-        @for (item of navItems; track item.label) {
+        @for (item of currentSidebarItems; track item.label) {
           <li>
             @if (item.children && item.children.length > 0) {
               <a
@@ -78,9 +78,33 @@
           severity="secondary"
           (onClick)="toggleSidebar()"
         />
+
+        <!-- Główne zakladki modułowe na górze -->
+        <nav class="topbar-nav">
+          @for (mod of modules; track mod.key) {
+            <button
+              type="button"
+              class="topbar-nav-item"
+              [class.active]="activeModuleKey === mod.key"
+              (click)="selectModule(mod.key)"
+            >
+              <i [class]="mod.icon"></i>
+              <span>{{ mod.label }}</span>
+            </button>
+          }
+        </nav>
       </div>
 
       <div class="topbar-right">
+        <p-button
+          [icon]="isDarkMode() ? 'pi pi-sun' : 'pi pi-moon'"
+          [text]="true"
+          severity="secondary"
+          (onClick)="toggleDarkMode()"
+          [pTooltip]="isDarkMode() ? 'Tryb jasny' : 'Tryb ciemny'"
+          tooltipPosition="bottom"
+        />
+
         <div class="user-profile" (click)="userMenu.toggle($event)" style="cursor: pointer;">
           <p-avatar icon="pi pi-user" shape="circle" styleClass="user-avatar" />
           <span class="user-name">Użytkownik</span>
