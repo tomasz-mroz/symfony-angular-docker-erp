@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use App\Repository\EmployeeRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 
@@ -25,6 +26,13 @@ class Employee
 
     #[ORM\Column(length: 50)]
     private ?string $role = null;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $createdAt;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'created_by', referencedColumnName: 'id', nullable: true)]
+    private ?User $createdBy = null;
 
     public function __construct()
     {
@@ -84,5 +92,25 @@ class Employee
     {
         $this->role = $role;
         return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): void
+    {
+        $this->createdBy = $createdBy;
     }
 }

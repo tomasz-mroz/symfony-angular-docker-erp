@@ -3,12 +3,12 @@
 namespace App\Application\Cqrs\Command\Employee;
 
 use App\Application\Cqrs\UuidResource;
+use App\Entity\User;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class CreateEmployee implements UuidResource
 {
-    // Zmienione z private na protected, aby klasy dziedziczące mogły z tego korzystać
     protected UuidInterface $uuid;
 
     private ?string $email = null;
@@ -16,8 +16,10 @@ class CreateEmployee implements UuidResource
     private ?string $lastName = null;
     private ?string $role = null;
 
-    public function __construct(?UuidInterface $uuid = null)
-    {
+    public function __construct(
+        ?UuidInterface $uuid = null,
+        private ?User $createdBy = null,
+    ) {
         $this->uuid = $uuid ?? Uuid::uuid4();
     }
 
@@ -33,7 +35,7 @@ class CreateEmployee implements UuidResource
 
     public function setEmail(?string $email): void
     {
-        $this->email = $email;
+        $this->email =$email;
     }
 
     public function getFirstName(): ?string
@@ -43,7 +45,7 @@ class CreateEmployee implements UuidResource
 
     public function setFirstName(?string $firstName): void
     {
-        $this->firstName = $firstName;
+        $this->firstName =$firstName;
     }
 
     public function getLastName(): ?string
@@ -53,7 +55,7 @@ class CreateEmployee implements UuidResource
 
     public function setLastName(?string $lastName): void
     {
-        $this->lastName = $lastName;
+        $this->lastName =$lastName;
     }
 
     public function getRole(): ?string
@@ -63,6 +65,11 @@ class CreateEmployee implements UuidResource
 
     public function setRole(?string $role): void
     {
-        $this->role = $role;
+        $this->role =$role;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
     }
 }

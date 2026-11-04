@@ -25,7 +25,10 @@ class CreateEmployeeController extends AbstractController
             command: CreateEmployee::class,
             form: CreateEmployeeForm::class,
             validate: true,
-            constructorArguments: [],
+            constructorArguments: [
+                null,
+                $this->controllerHelper->getCurrentUserEntity(),
+            ],
         );
 
         $this->messageBus->dispatch($command);

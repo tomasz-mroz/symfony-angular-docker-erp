@@ -5,6 +5,7 @@ namespace App\Application\Cqrs\CommandHandler\Employee;
 use App\Application\Cqrs\Command\Employee\CreateEmployee;
 use App\Domain\PersistenceInterface;
 use App\Entity\Employee;
+use DateTimeImmutable;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
@@ -15,7 +16,7 @@ class CreateEmployeeHandler
     ) {
     }
 
-    public function __invoke(CreateEmployee$command): void
+    public function __invoke(CreateEmployee $command): void
     {
         $employee = new Employee();
         $employee->setUuid($command->getUuid());
@@ -23,6 +24,8 @@ class CreateEmployeeHandler
         $employee->setLastName($command->getLastName());
         $employee->setEmail($command->getEmail());
         $employee->setRole($command->getRole());
+        $employee->setCreatedAt(new DateTimeImmutable());
+        $employee->setCreatedBy($command->getCreatedBy());
 
         $this->persistence->persist($employee);
         $this->persistence->flush();

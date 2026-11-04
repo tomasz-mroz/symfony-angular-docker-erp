@@ -21,6 +21,7 @@ import { Employee } from '../../../shared/interface/employee';
     CardModule,
     ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './employee-form.component.html',
   styleUrl: './employee-form.component.scss',
 })
